@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Controla tus 100 horas mensuales de Nvidia GeForce NOW y reparte las horas restantes entre días laborables y fines de semana."
+    />
+    <title>Control de horas GeForce NOW</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero" aria-labelledby="app-title">
+        <div>
+          <p class="eyebrow">Nvidia GeForce NOW · 100 h/mes</p>
+          <h1 id="app-title">Planificador de horas de juego</h1>
+          <p class="hero-copy">
+            Introduce las horas que te quedan en Nvidia y la app calculará cuánto puedes jugar cada día,
+            reservando 8 h para cada sábado y domingo y repartiendo el resto entre los días disponibles.
+          </p>
+        </div>
+        <div class="hero-card" aria-label="Resumen mensual recomendado">
+          <span class="hero-card__number">100 h</span>
+          <span class="hero-card__label">límite mensual</span>
+          <span class="hero-card__hint">Fines de semana: 8 h/día</span>
+        </div>
+      </section>
+
+      <section class="panel setup-panel" aria-labelledby="setup-title">
+        <div>
+          <h2 id="setup-title">Configura tu mes</h2>
+          <p>Estos datos se guardan en este navegador para que puedas volver y actualizar tu consumo.</p>
+        </div>
+
+        <form id="settings-form" class="settings-form">
+          <label>
+            Mes a controlar
+            <input id="month-input" type="month" required />
+          </label>
+          <label>
+            Horas restantes que muestra Nvidia
+            <input id="remaining-input" type="number" min="0" max="100" step="0.25" required />
+          </label>
+          <label>
+            Fecha desde la que planificar
+            <input id="start-date-input" type="date" required />
+          </label>
+          <button type="submit">Actualizar planificación</button>
+        </form>
+      </section>
+
+      <section class="summary-grid" aria-label="Resumen de horas">
+        <article class="summary-card">
+          <span class="summary-card__label">Horas restantes</span>
+          <strong id="remaining-summary">0 h</strong>
+        </article>
+        <article class="summary-card">
+          <span class="summary-card__label">Horas consumidas</span>
+          <strong id="used-summary">0 h</strong>
+        </article>
+        <article class="summary-card">
+          <span class="summary-card__label">Objetivo laborables</span>
+          <strong id="weekday-target-summary">0 h/día</strong>
+        </article>
+        <article class="summary-card">
+          <span class="summary-card__label">Reserva fines de semana</span>
+          <strong id="weekend-reserve-summary">0 h</strong>
+        </article>
+      </section>
+
+      <section class="panel" aria-labelledby="daily-title">
+        <div class="section-header">
+          <div>
+            <h2 id="daily-title">Registro diario</h2>
+            <p>Marca las horas jugadas cada día. El restante real se recalcula automáticamente.</p>
+          </div>
+          <button id="reset-button" class="secondary-button" type="button">Reiniciar datos</button>
+        </div>
+
+        <div id="alert-box" class="alert" role="status" hidden></div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Plan recomendado</th>
+                <th>Jugado</th>
+                <th>Restante tras el día</th>
+              </tr>
+            </thead>
+            <tbody id="days-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <template id="day-row-template">
+      <tr>
+        <td class="date-cell"></td>
+        <td class="type-cell"></td>
+        <td class="plan-cell"></td>
+        <td>
+          <input class="played-input" type="number" min="0" max="24" step="0.25" aria-label="Horas jugadas" />
+        </td>
+        <td class="remaining-cell"></td>
+      </tr>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
